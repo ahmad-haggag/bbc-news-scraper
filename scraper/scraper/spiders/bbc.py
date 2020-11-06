@@ -13,6 +13,7 @@ class BbcSpider(CrawlSpider):
              callback='parse_news', follow=True)
     ]
 
+
     def parse_news(self, response):
         '''
         DESCRIPTION:
