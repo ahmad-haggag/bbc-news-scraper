@@ -11,3 +11,5 @@ class BbcNewsItem(scrapy.Item):
     # name = scrapy.Field()
     url = scrapy.Field()
     headline = scrapy.Field()
+    authors = scrapy.Field()
+    text = scrapy.Field()
