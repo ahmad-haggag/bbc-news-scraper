@@ -64,9 +64,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'scraper.pipelines.ScraperPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'scraper.pipelines.MongoDBPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -86,12 +86,17 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_ENABLED = True
 #HTTPCACHE_EXPIRATION_SECS = 0
 #HTTPCACHE_DIR = 'httpcache'
-#HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# HTTPCACHE_IGNORE_HTTP_CODES = []
+# HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # The maximum depth that will be allowed to crawl (If zero, no limit will be imposed)
 DEPTH_LIMIT = 1  # for demonstration purpose
 
 # Logging configuration
-LOG_FILE = 'logs/bbc_scrap_' + datetime.now().strftime("%Y-%m-%d") + ".log"
+LOG_FILE = 'logs/bbc_scrap_' + datetime.now().strftime("%Y-%m-%d-%H-%M") + ".log"
 LOG_LEVEL = 'INFO'
+
+# MONOGDB database configuration
+MONGODB_URL = 'mongodb+srv://ahmad-haggag:bbc$123@cluster0.6hzyf.mongodb.net/bbc_website'
+MONGODB_DB = "bbc_website"
+MONGODB_COLLECTION = "bbc_news"

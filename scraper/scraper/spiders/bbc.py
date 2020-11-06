@@ -1,9 +1,12 @@
 import logging
+import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from ..items import BbcNewsItem
 from readability import Document
 import html2text
+from gensim.summarization import keywords
+from rake_nltk import Rake
 from goose3 import Goose
 
 
@@ -36,7 +39,8 @@ class BbcSpider(CrawlSpider):
             item['headline'] = response.xpath('//title/text()').extract_first()
             item['authors'] = response.xpath("//meta[@property='article:author']/@content").extract()
 
-            item['text'] = self.get_article_text(response_html=response.text)
+            article_text = self.get_article_text(response_html=response.text)
+            item['text'] = article_text
 
             logging.info(' Item : ' + str(item))
 
@@ -51,8 +55,7 @@ class BbcSpider(CrawlSpider):
                PARAMETERS:
                ----------
                    1. html response body
-               '''
-
+        '''
         doc = Document(response_html)
         article_html = Document(doc.content()).summary()
         h = html2text.HTML2Text()
