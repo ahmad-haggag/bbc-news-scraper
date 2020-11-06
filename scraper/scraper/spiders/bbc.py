@@ -34,7 +34,7 @@ class BbcSpider(CrawlSpider):
             item = BbcNewsItem()
             item['url'] = url
             item['headline'] = response.xpath('//title/text()').extract_first()
-            item['authors'] = response.xpath("//meta[ @ property = 'article:author'").extract()
+            item['authors'] = response.xpath("//meta[@property='article:author']/@content").extract()
 
             item['text'] = self.get_article_text(response_html=response.text)
 
