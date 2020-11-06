@@ -7,6 +7,8 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from datetime import datetime
+
 BOT_NAME = 'scraper'
 
 SPIDER_MODULES = ['scraper.spiders']
@@ -86,3 +88,10 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# The maximum depth that will be allowed to crawl (If zero, no limit will be imposed)
+DEPTH_LIMIT = 1  # for demonstration purpose
+
+# Logging configuration
+LOG_FILE = 'logs/bbc_scrap_' + datetime.now().strftime("%Y-%m-%d") + ".log"
+LOG_LEVEL = 'INFO'
