@@ -15,13 +15,6 @@ api = Api(app)
 mongo = PyMongo(app)
 
 
-def format_result(data):
-    """Convert Mongo object(s) to JSON"""
-    result_count = len(data)
-    # return json.dumps({'result_count': result_count, 'data': data}, default=json_util.default)
-    return jsonify({'result_count': result_count, 'data': data})
-
-
 #  BbcNewsApi a class for retrieve all BbcNews resources stored in MONGODB
 class BbcNewsAPI(Resource):
 
@@ -39,12 +32,12 @@ class BbcNewsAPI(Resource):
 
 
 #  Headline a class for retrieve all BbcNews resources where headline contains a specific keyword
-class HeadlineAPI(Resource):
+class ArticleHeadlineAPI(Resource):
     def get(self, keyword):
         '''
         DESCRIPTION:
         ------------
-        GET BBC news articles where headline contains a specific keyword with case insensitive
+        GET BBC news articles using headline contains a specific keyword with case insensitive
         PARAMETERS:
         ----------
         1. keyword: string to be searched in BBC news headline.
@@ -57,8 +50,30 @@ class HeadlineAPI(Resource):
         return jsonify({'result': json_results, 'result_count': len(json_results)})
 
 
+#  Headline a class for retrieve all BbcNews resources where headline contains a specific keyword
+class ArticleTextAPI(Resource):
+    def get(self, keyword):
+        '''
+        DESCRIPTION:
+        ------------
+        GET BBC news articles using Full-Text Search on Article text attribute
+        PARAMETERS:
+        ----------
+        1. keyword: string to be searched in BBC news article text.
+        '''
+
+        results = mongo.db.bbc_news.find({"$text": {"$search": keyword}}, {'_id': False})
+
+        json_results = []
+        for result in results:
+            json_results.append(result)
+
+        return jsonify({'result': json_results, 'result_count': len(json_results)})
+
+
 api.add_resource(BbcNewsAPI, '/bbc-news/api/_all')
-api.add_resource(HeadlineAPI, '/bbc-news/api/headline/<string:keyword>')
+api.add_resource(ArticleHeadlineAPI, '/bbc-news/api/headline/<string:keyword>')
+api.add_resource(ArticleTextAPI, '/bbc-news/api/text/<string:keyword>')
 
 if __name__ == '__main__':
     app.run()
