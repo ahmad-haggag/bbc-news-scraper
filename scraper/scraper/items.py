@@ -13,3 +13,5 @@ class BbcNewsItem(scrapy.Item):
     headline = scrapy.Field()
     authors = scrapy.Field()
     text = scrapy.Field()
+    crawling_datetime = scrapy.Field()
+    publish_datetime = scrapy.Field()

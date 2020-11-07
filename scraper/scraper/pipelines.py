@@ -42,9 +42,9 @@ class MongoDBPipeline:
         for data in item:
             if data == 'text' and not data:
                 valid = False
-                logging.error(" URL %s dropped ", str(item['url']))
-                raise DropItem(" URL Missing {0}!".format(data))
+                logging.error(" URL %s not saved in database ", str(item['url']))
+                raise DropItem(" article text not extracted  {0}!".format(item))
         if valid:
             self.db[self.collection_name].insert(dict(item))
-            logging.info("  URL  %s  added to database ", str(item['url']))
+            logging.info("  URL  %s  saved to database ", str(item['url']))
         return item

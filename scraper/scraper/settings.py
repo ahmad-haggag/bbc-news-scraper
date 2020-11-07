@@ -90,7 +90,7 @@ ITEM_PIPELINES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # The maximum depth that will be allowed to crawl (If zero, no limit will be imposed)
-DEPTH_LIMIT = 1  # for demonstration purpose
+DEPTH_LIMIT = 2  # for testing purpose
 
 # Logging configuration
 LOG_FILE = 'logs/bbc_scrap_' + datetime.now().strftime("%Y-%m-%d-%H-%M") + ".log"
