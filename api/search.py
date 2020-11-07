@@ -52,7 +52,7 @@ class ArticleHeadlineAPI(Resource):
 
 #  Headline a class for retrieve all BbcNews resources where headline contains a specific keyword
 class ArticleTextAPI(Resource):
-    def get(self, keyword):
+    def get(self):
         '''
         DESCRIPTION:
         ------------
@@ -62,7 +62,8 @@ class ArticleTextAPI(Resource):
         1. keyword: string to be searched in BBC news article text.
         '''
 
-        results = mongo.db.bbc_news.find({"$text": {"$search": keyword}}, {'_id': False})
+        query_param = request.args.get('q')
+        results = mongo.db.bbc_news.find({"$text": {"$search": query_param}}, {'_id': False})
 
         json_results = []
         for result in results:
@@ -73,7 +74,7 @@ class ArticleTextAPI(Resource):
 
 api.add_resource(BbcNewsAPI, '/bbc-news/api/_all')
 api.add_resource(ArticleHeadlineAPI, '/bbc-news/api/headline/<string:keyword>')
-api.add_resource(ArticleTextAPI, '/bbc-news/api/text/<string:keyword>')
+api.add_resource(ArticleTextAPI, '/bbc-news/api/text')
 
 if __name__ == '__main__':
     app.run()
