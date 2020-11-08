@@ -8,6 +8,7 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from datetime import datetime
+import os
 
 BOT_NAME = 'scraper'
 
@@ -93,6 +94,8 @@ ITEM_PIPELINES = {
 DEPTH_LIMIT = 2  # for testing purpose only
 
 # Logging configuration
+if not os.path.exists('logs/'):
+    os.makedirs('logs/')
 LOG_FILE = 'logs/bbc_scrap_' + datetime.now().strftime("%Y-%m-%d-%H-%M") + ".log"
 LOG_LEVEL = 'INFO'
 
