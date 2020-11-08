@@ -19,12 +19,12 @@ Collect and store BBC News Website article
 # Usage
    * Set DEPTH_LIMIT in scraper `settings.py` file  (for testing purpose I have set it = 2)
    
-   * Start BBC News Scraper run the following command 
+   * Run BBC News Scraper via the following command 
    ```
          scrapy crawl bbc  
    ```
 
-   * Start BBC New Search API run the following command from `api` directory
+   * Run BBC New Search API via the following command from `api` directory
    ```
         python search.py
    ```
